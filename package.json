@@ -5,6 +5,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "server": "node server",
+    "client": "node scripts/client",
+    "start": "concurrently \"nodemon server\" \"yarn client\"",
+    "build": "node scripts/build",
+    "fs-install": "yarn && cd client && yarn",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
