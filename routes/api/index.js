@@ -3,4 +3,4 @@ const dataRoutes = require('./data');
 
 router.use('/data', dataRoutes);
 
-export default router;
+module.exports = router;

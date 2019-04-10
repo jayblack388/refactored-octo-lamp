@@ -8,4 +8,4 @@ router.use((req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-export default router;
+module.exports = router;
