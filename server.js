@@ -21,9 +21,9 @@ app.use(routes);
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/refactored-octo-lamp',
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/refactored-octo-lamp',
   {
-    useMongoClient: true
+    useNewUrlParser: true
   }
 );
 
