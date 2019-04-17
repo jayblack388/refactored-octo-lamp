@@ -26,11 +26,18 @@
   },
   "homepage": "https://github.com/jayblack388/refactored-octo-lamp#readme",
   "dependencies": {
+    "amazon-cognito-identity-js": "^3.0.11",
+    "aws-sdk": "^2.438.0",
     "body-parser": "^1.18.3",
+    "cognito-express": "^2.0.14",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.1",
     "mongoose": "^5.5.0",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.3.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
