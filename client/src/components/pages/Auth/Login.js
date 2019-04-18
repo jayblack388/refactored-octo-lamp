@@ -1,12 +1,11 @@
 import React from 'react';
 import { Page, Wrapper } from '../../containers';
-const HomePage = props => {
-  console.log(props);
+const Login = props => {
   return (
     <Page>
-      <Wrapper>I'm the HomePage!</Wrapper>
+      <Wrapper>I'm the Login Page!</Wrapper>
     </Page>
   );
 };
 
-export default HomePage;
+export default Login;
