@@ -15,7 +15,7 @@
     "fs-install": "yarn && cd client && yarn",
     "seed": "node scripts/seed",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "yarn seed && yarn build-client"
+    "heroku-postbuild": "yarn seed"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,6 @@
     "mongoose": "^5.5.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
-    "react-scripts": "^2.1.8",
     "request": "^2.88.0"
   },
   "devDependencies": {
