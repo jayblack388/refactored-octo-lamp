@@ -1,10 +1,12 @@
+require('dotenv').config();
+const cognito = require('../../keys').cognito;
 const CognitoExpress = require('cognito-express');
 const router = require('express').Router();
 const dataRoutes = require('./data');
 
 const cognitoExpress = new CognitoExpress({
   region: 'us-east-1',
-  cognitoUserPoolId: 'us-east-1_c8GnoABr6',
+  cognitoUserPoolId: cognito.poolId,
   tokenUse: 'access', //Possible Values: access | id
   tokenExpiration: 3600000 //Up to default expiration of 1 hour (3600000 ms)
 });

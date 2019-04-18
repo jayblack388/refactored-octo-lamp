@@ -1,14 +1,16 @@
+require('dotenv').config();
+const cognito = require('../keys').cognito;
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-const AWS = require('aws-sdk');
+// const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
+// const AWS = require('aws-sdk');
 const request = require('request');
 const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
 global.fetch = require('node-fetch');
 
 const poolData = {
-  UserPoolId: 'us-east-1_c8GnoABr6', // Your user pool id here
-  ClientId: 'uoc8h8bpvmvhh2dk85a1ah4oj' // Your client id here
+  UserPoolId: cognito.poolId, // Your user pool id here
+  ClientId: cognito.clientId // Your client id here
 };
 const pool_region = 'us-east-1';
 
