@@ -4,7 +4,7 @@ const Signup = props => {
   console.log(props);
   return (
     <Page>
-      <Wrapper>I'm the Signup Page!</Wrapper>
+      <Wrapper fullHeight>I'm the Signup Page!</Wrapper>
     </Page>
   );
 };

@@ -4,7 +4,7 @@ const HomePage = props => {
   console.log(props);
   return (
     <Page>
-      <Wrapper>I'm the HomePage!</Wrapper>
+      <Wrapper fullHeight>I'm the HomePage!</Wrapper>
     </Page>
   );
 };

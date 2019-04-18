@@ -5,4 +5,5 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: ${props => (props.fullHeight ? '100%' : 'fit-content')};
 `;

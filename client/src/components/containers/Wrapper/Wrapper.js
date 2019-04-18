@@ -1,8 +1,9 @@
 import React from 'react';
 import { Wrapper as StyledWrapper } from './Wrapper.styled';
 
-const Wrapper = ({ children }) => {
-  return <StyledWrapper>{children}</StyledWrapper>;
+const Wrapper = props => {
+  const { children } = props;
+  return <StyledWrapper {...props}>{children}</StyledWrapper>;
 };
 
 export default Wrapper;
