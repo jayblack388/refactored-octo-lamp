@@ -14,8 +14,8 @@ const Routes = props => {
         ) : (
           // These are the unauthenticate routes
           <>
-            <Route path="/" render={() => <Login {...props} />} />
-            <Route path="/signup" render={() => <Signup {...props} />} />
+            <Route exact path="/" render={() => <Login {...props} />} />
+            <Route exact path="/signup" render={() => <Signup {...props} />} />
             {/* <Redirect to="/login" /> not sure why this isn't working */}
           </>
         )}
