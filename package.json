@@ -9,9 +9,9 @@
   "main": "server.js",
   "scripts": {
     "server": "node server",
-    "client": "cd client && yarn start",
+    "client": "node scripts/client",
     "start": "concurrently \"mongod\" \"nodemon server\" \"yarn client\"",
-    "build": "cd client && yarn build",
+    "build": "node scripts/build",
     "fs-install": "yarn && cd client && yarn",
     "seed": "node scripts/seed",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -40,6 +40,7 @@
     "mongoose": "^5.5.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
+    "react-scripts": "^2.1.8",
     "request": "^2.88.0"
   },
   "devDependencies": {
