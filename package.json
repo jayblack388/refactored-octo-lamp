@@ -11,11 +11,11 @@
     "server": "node server",
     "client": "node scripts/client",
     "start": "concurrently \"mongod\" \"nodemon server\" \"yarn client\"",
-    "build": "node scripts/build",
+    "build-client": "node scripts/build",
     "fs-install": "yarn && cd client && yarn",
     "seed": "node scripts/seed",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm run seed && npm run build"
+    "heroku-postbuild": "yarn seed && yarn build-client"
   },
   "repository": {
     "type": "git",
@@ -41,9 +41,6 @@
     "mongoose": "^5.5.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "^2.1.8",
     "request": "^2.88.0"
   },
   "devDependencies": {
