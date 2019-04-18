@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
+  "homepage" : "https://refactored-octo-lamp.herokuapp.com/",
   "dependencies": {
     "aws-amplify": "^1.1.26",
     "aws-amplify-react": "^2.3.6",
