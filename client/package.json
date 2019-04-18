@@ -1,11 +1,18 @@
 {
-  "name": "client",
+  "name": "refactored-octo-lamp-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
+    "aws-amplify": "^1.1.26",
+    "aws-amplify-react": "^2.3.6",
+    "axios": "^0.18.0",
+    "color": "^3.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
