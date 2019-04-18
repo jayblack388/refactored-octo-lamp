@@ -14,7 +14,8 @@
     "build": "node scripts/build",
     "fs-install": "yarn && cd client && yarn",
     "seed": "node scripts/seed",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run seed && npm run build"
   },
   "repository": {
     "type": "git",
