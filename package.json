@@ -9,9 +9,9 @@
   "main": "server.js",
   "scripts": {
     "server": "node server",
-    "client": "node scripts/client",
+    "client": "cd client && yarn start",
     "start": "concurrently \"mongod\" \"nodemon server\" \"yarn client\"",
-    "build": "node scripts/build",
+    "build": "cd client && yarn build",
     "fs-install": "yarn && cd client && yarn",
     "seed": "node scripts/seed",
     "test": "echo \"Error: no test specified\" && exit 1",
