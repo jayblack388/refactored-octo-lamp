@@ -20,8 +20,8 @@ export const Loader = styled.div`
   height: 32px;
   margin-right: 1rem;
   display: inline-block;
-  border: 4px rgba(#003d92, 0.25) solid;
-  border-top: 4px rgba($link, 1) solid;
+  border: 4px #003d9280 solid;
+  border-top: 4px #0062ff solid;
   border-radius: 50%;
   -webkit-animation: ${rotate} 0.8s infinite ease-in-out;
   animation: ${rotate} 0.8s infinite ease-in-out;
