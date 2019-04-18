@@ -4,7 +4,7 @@ const router = require('express').Router();
 const cognito = require('../cognito');
 
 router.route('/config').get(function(req, res) {
-  res.json({
+  res.status(200).json({
     userPoolId: cognitoKeys.poolId,
     userPoolWebClientId: cognitoKeys.clientId
   });
