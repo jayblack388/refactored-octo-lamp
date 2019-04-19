@@ -9,29 +9,22 @@ const Routes = props => {
     <div id="App">
       <Loader isLoading={authState === 'loading'} message="Logging user in...">
         <Switch>
-          {isAuthenticated || authState === 'signedIn' ? (
-            // These are the authenticated routes
-            <Route
-              path="/"
-              render={() => (
+          <Route exact path="/login" render={() => <Login {...props} />} />
+          <Route exact path="/signup" render={() => <Signup {...props} />} />
+          <Route
+            path="/"
+            render={() =>
+              isAuthenticated ? (
                 <>
                   <Header onLogout={onLogout} />
                   <HomePage {...props} />
                 </>
-              )}
-            />
-          ) : (
-            // These are the unauthenticate routes
-            <>
-              <Route exact path="/login" render={() => <Login {...props} />} />
-              <Route
-                exact
-                path="/signup"
-                render={() => <Signup {...props} />}
-              />
-              {/* <Redirect to="/login" /> not sure why this isn't working */}
-            </>
-          )}
+              ) : (
+                <Redirect exact path="/" to="/login" />
+              )
+            }
+          />
+          {/* <Redirect to="/login" /> not sure why this isn't working */}
         </Switch>
       </Loader>
     </div>

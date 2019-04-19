@@ -147,14 +147,20 @@ class CustomAuthenticator extends Component {
         this.setState({ config: data, isLoading: false })
       );
     }
+    console.log(`UserAuthenticated ::: ${this.state.userIsAuthenticated}`);
+    if (this.state.userIsAuthenticated) {
+      console.log(`CogntioUser ::: ${this.state.cognitoUser}`);
+    }
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   const { config } = this.state;
-  //   if (config && !(config.userPoolId || config.userPoolWebClientId)) {
-  //     getConfig();
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.userIsAuthenticated !== prevState.userIsAuthenticated) {
+      console.log(`UserAuthenticated Update ::: ${this.state.userIsAuthenticated}`);
+      if (this.state.userIsAuthenticated) {
+        console.log(`CogntioUser Update ::: ${this.state.cognitoUser}`);
+      }
+    }
+  }
 
   render() {
     const { config, cognitoUser, isLoading } = this.state;

@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Page, Wrapper } from '../../containers';
 import { Button } from '../../common';
+import { useRouter } from '../../../utils/customHooks';
 
 const QuickForm = props => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
+  const { history, location, match } = useRouter();
+
   const handleSubmit = e => {
     e.preventDefault();
     props.onLogin(name, password);
+    history.push('/');
   };
   return (
     <form
