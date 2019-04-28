@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
-const path = require('path');
 const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
