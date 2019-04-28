@@ -7,7 +7,7 @@ const QuickForm = props => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
-  const { history, location, match } = useRouter();
+  const { history } = useRouter();
 
   const handleSubmit = e => {
     e.preventDefault();
