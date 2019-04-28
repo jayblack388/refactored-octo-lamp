@@ -4,14 +4,18 @@ import { Header, Loader } from './components/common';
 import { HomePage, Login, Signup } from './components/pages';
 
 const Routes = props => {
-  const { isAuthenticated, authState, onLogout } = props;
+  const { isAuthenticated, authState, onLogout, user } = props;
   return (
     <div id="App">
-      <Loader isLoading={authState === 'loading'} message="Logging user in...">
+      <Loader
+        isLoading={authState === 'loading'}
+        message="Loading authentication..."
+      >
         <Switch>
           <Route exact path="/login" render={() => <Login {...props} />} />
           <Route exact path="/signup" render={() => <Signup {...props} />} />
           <Route
+            exact
             path="/"
             render={() =>
               isAuthenticated ? (
@@ -20,7 +24,7 @@ const Routes = props => {
                   <HomePage {...props} />
                 </>
               ) : (
-                <Redirect exact path="/" to="/login" />
+                <Login {...props} />
               )
             }
           />
