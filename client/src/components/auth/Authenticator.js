@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Amplify, { Auth } from 'aws-amplify';
 import { Authenticator } from 'aws-amplify-react';
 
@@ -11,7 +11,13 @@ const CustomAuthenticator = props => {
   const { children } = props;
 
   const [store, dispatch] = useGlobalState();
-  const { config } = store;
+  const {
+    auth: { isAuthenticated },
+    config,
+    user: {
+      user: { email }
+    }
+  } = store;
   const {
     isLoading: configIsLoading,
     config: { userPoolId, userPoolWebClientId }
@@ -33,25 +39,30 @@ const CustomAuthenticator = props => {
       });
   };
 
+  const mapUser = cognitoUser => {
+    const { attributes, signInUserSession } = cognitoUser;
+    const { email } = attributes;
+    const {
+      refreshToken: { token: refreshToken },
+      idToken: { jwtToken: idToken },
+      accessToken: { jwtToken: accessToken }
+    } = signInUserSession;
+    const user = {
+      email,
+      tokens: {
+        accessToken,
+        idToken,
+        refreshToken
+      }
+    };
+    return user;
+  };
+
   const onLogin = (username, password) => {
     dispatch({ type: actions.LOGIN_REQUEST });
     const response = Auth.signIn(username, password)
       .then(cognitoUser => {
-        const { attributes, signInUserSession } = cognitoUser;
-        const { email } = attributes;
-        const {
-          refreshToken: { token: refreshToken },
-          idToken: { jwtToken: idToken },
-          accessToken: { jwtToken: accessToken }
-        } = signInUserSession;
-        const user = {
-          email,
-          tokens: {
-            accessToken,
-            idToken,
-            refreshToken
-          }
-        };
+        const user = mapUser(cognitoUser);
         console.log('user :::', user);
         dispatch({
           type: actions.LOGIN_SUCCESS,
@@ -106,6 +117,29 @@ const CustomAuthenticator = props => {
       type: actions.INITIALIZE
     });
   };
+
+  useEffect(() => {
+    if (!email && isAuthenticated) {
+      dispatch({ type: actions.LOGIN_REQUEST });
+      Auth.currentAuthenticatedUser({
+        bypassCache: true
+      })
+        .then(cognitoUser => {
+          const user = mapUser(cognitoUser);
+          console.log('user :::', user);
+          dispatch({
+            type: actions.LOGIN_SUCCESS,
+            user
+          });
+        })
+        .catch(err =>
+          dispatch({
+            type: actions.LOGIN_FAILURE,
+            error: err
+          })
+        );
+    }
+  }, [isAuthenticated, email]);
 
   useEffect(() => {
     if (config && !(userPoolId && userPoolWebClientId)) {
