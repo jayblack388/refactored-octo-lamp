@@ -3,9 +3,32 @@ import Amplify, { Auth } from 'aws-amplify';
 import { Authenticator } from 'aws-amplify-react';
 
 import { useGlobalState } from '../../store/GlobalState';
-import * as actions from '../store/actions/types';
-import { getConfig } from '../../utils/API';
+import * as actions from '../../store/actions/types';
+import { getConfig, getUserData } from '../../utils/API';
 import { Loader } from '../common';
+
+const mapUser = async cognitoUser => {
+  const { attributes, signInUserSession } = cognitoUser;
+  const { email } = attributes;
+  const {
+    refreshToken: { token: refreshToken },
+    idToken: { jwtToken: idToken },
+    accessToken: { jwtToken: accessToken }
+  } = signInUserSession;
+  const response = await getUserData(email);
+  const user = {
+    details: {
+      email,
+      ...response.data
+    },
+    tokens: {
+      accessToken,
+      idToken,
+      refreshToken
+    }
+  };
+  return user;
+};
 
 const CustomAuthenticator = props => {
   const { children } = props;
@@ -15,7 +38,9 @@ const CustomAuthenticator = props => {
     auth: { isAuthenticated },
     config,
     user: {
-      user: { email }
+      user: {
+        details: { email }
+      }
     }
   } = store;
   const {
@@ -39,30 +64,11 @@ const CustomAuthenticator = props => {
       });
   };
 
-  const mapUser = cognitoUser => {
-    const { attributes, signInUserSession } = cognitoUser;
-    const { email } = attributes;
-    const {
-      refreshToken: { token: refreshToken },
-      idToken: { jwtToken: idToken },
-      accessToken: { jwtToken: accessToken }
-    } = signInUserSession;
-    const user = {
-      email,
-      tokens: {
-        accessToken,
-        idToken,
-        refreshToken
-      }
-    };
-    return user;
-  };
-
   const onLogin = (username, password) => {
     dispatch({ type: actions.LOGIN_REQUEST });
     const response = Auth.signIn(username, password)
-      .then(cognitoUser => {
-        const user = mapUser(cognitoUser);
+      .then(async cognitoUser => {
+        const user = await mapUser(cognitoUser);
         console.log('user :::', user);
         dispatch({
           type: actions.LOGIN_SUCCESS,
@@ -124,8 +130,8 @@ const CustomAuthenticator = props => {
       Auth.currentAuthenticatedUser({
         bypassCache: true
       })
-        .then(cognitoUser => {
-          const user = mapUser(cognitoUser);
+        .then(async cognitoUser => {
+          const user = await mapUser(cognitoUser);
           console.log('user :::', user);
           dispatch({
             type: actions.LOGIN_SUCCESS,
