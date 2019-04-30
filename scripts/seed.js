@@ -10,37 +10,48 @@ mongoose.connect(MONGODB_URI, {
 
 const dataSeed = [
   {
-    name: 'John'
+    name: 'John',
+    email: 'jblackwell072588@gmail.com'
   },
   {
-    name: 'Lindsay'
+    name: 'Lindsay',
+    email: 'jblackwell072588+lindsay@gmail.com'
   },
   {
-    name: 'Leslie'
+    name: 'Leslie',
+    email: 'jblackwell072588+leslie@gmail.com'
   },
   {
-    name: 'Jack'
+    name: 'Jack',
+    email: 'jblackwell072588+jackb@gmail.com'
   },
   {
-    name: 'Lee'
+    name: 'Lee',
+    email: 'jblackwell072588+lee@gmail.com'
   },
   {
-    name: 'Barbara'
+    name: 'Barbara',
+    email: 'jblackwell072588+barbara@gmail.com'
   },
   {
-    name: 'David'
+    name: 'David',
+    email: 'jblackwell072588+david@gmail.com'
   },
   {
-    name: 'Lara'
+    name: 'Lara',
+    email: 'jblackwell072588+lara@gmail.com'
   },
   {
-    name: 'Liam'
+    name: 'Liam',
+    email: 'jblackwell072588+liam@gmail.com'
   },
   {
-    name: 'Jack'
+    name: 'Jack',
+    email: 'jblackwell072588+jackc@gmail.com'
   },
   {
-    name: 'George'
+    name: 'George',
+    email: 'jblackwell072588+george@gmail.com'
   }
 ];
 
