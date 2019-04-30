@@ -10,7 +10,6 @@ export const userInitialState = {
   isLoading: false,
   error: null,
   user: {
-    email: null,
     tokens: {
       accessToken: {
         jwtToken: null
@@ -21,6 +20,9 @@ export const userInitialState = {
       refreshToken: {
         token: null
       }
+    },
+    details: {
+      email: null
     }
   }
 };
@@ -30,17 +32,24 @@ const mapData = (current = userInitialState.user, res) => {
   const accessToken = res && res.accessToken;
   const idToken = res && res.idToken;
   const refreshToken = res && res.token;
+  // Adding Tokens
   const tokens = {
     ...current.tokens
   };
   if (accessToken) tokens.accessToken.jwtToken = accessToken;
   if (idToken) tokens.idToken.jwtToken = idToken;
   if (refreshToken) tokens.refreshToken.token = refreshToken;
+  // Adding Details
+  const details = {
+    ...current.details
+  };
+  if (email) details.email = email;
+  // Spreading in tokens and details
   const response = {
     ...current,
-    tokens
+    tokens,
+    details
   };
-  if (email) response.email = email;
 
   return response;
 };

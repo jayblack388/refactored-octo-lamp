@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Page, Wrapper } from '../../containers';
-import { Button } from '../../common';
+import { Button, Loader } from '../../common';
 import { useGlobalState } from '../../../store/GlobalState';
+import { getUserData } from '../../../utils/API';
 const HomePage = props => {
-  const [{ user }, actions] = useGlobalState();
-  console.log(user);
-  console.log(actions);
+  const [{ user: { user, isLoading } }, ] = useGlobalState();
+
   return (
     <Page>
       <Wrapper fullHeight>
-        <span>I'm the Home Page</span>
-        {user.user.email}
-        <Button message={'stuff'} />
+        <Loader isLoading={isLoading} >
+          <span>I'm the Home Page</span>
+          {user.details.email}
+          <Button message={'stuff'} />
+        </Loader>
       </Wrapper>
     </Page>
   );
