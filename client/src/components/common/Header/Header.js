@@ -1,19 +1,23 @@
 import React from 'react';
-import { Container } from './Header.styled';
-import { Button } from '../';
-import { useRouter } from '../../../utils/customHooks';
+import { Button, Container } from './Header.styled';
+import { BrandLink } from '../';
+import { useGlobalState } from '../../../store/GlobalState';
 
 const Header = props => {
   const { onLogout } = props;
-  const { history, location, match } = useRouter();
-
-  const logOut = () => {
-    onLogout();
-    history.push('/login');
-  };
+  const [
+    {
+      user: { user },
+    },
+  ] = useGlobalState();
+  console.log(user);
   return (
     <Container>
-      <Button onClick={logOut} message="Sign Out" />
+      <BrandLink />
+      <div>
+        <Button message={user.details.email} />
+        <Button onClick={onLogout} message="Sign Out" />
+      </div>
     </Container>
   );
 };
