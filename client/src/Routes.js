@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Header, Loader } from './components/common';
 import { HomePage, Login, Signup } from './components/pages';
 import { useGlobalState } from './store/GlobalState';
@@ -18,8 +18,7 @@ const Routes = props => {
           <Route exact path="/login" render={() => <Login {...props} />} />
           <Route exact path="/signup" render={() => <Signup {...props} />} />
           <Route
-            exact
-            path="/"
+            path="*"
             render={() =>
               isAuthenticated ? (
                 <>

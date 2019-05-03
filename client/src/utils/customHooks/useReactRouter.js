@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { __RouterContext } from 'react-router';
+import { __RouterContext } from 'react-router-dom';
 import { useForceUpdate } from './';
 
 const useRouter = () => {
