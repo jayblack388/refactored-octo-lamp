@@ -1,23 +1,27 @@
 import React from 'react';
 import { Button, Container } from './Header.styled';
-import { BrandLink } from '../';
+import { BrandLink, Dropdown } from '../';
 import { useGlobalState } from '../../../store/GlobalState';
 
 const Header = props => {
   const { onLogout } = props;
+  const items = [
+    <Button message="Link #1" />,
+    <Button message="Link #2" />,
+    <Button onClick={onLogout} message="Sign Out" />,
+  ];
   const [
     {
-      user: { user },
+      user: {
+        user: { details: user },
+      },
     },
   ] = useGlobalState();
   console.log(user);
   return (
     <Container>
       <BrandLink />
-      <div>
-        <Button message={user.details.email} />
-        <Button onClick={onLogout} message="Sign Out" />
-      </div>
+      <Dropdown message={user.name} items={items} />
     </Container>
   );
 };
