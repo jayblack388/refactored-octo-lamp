@@ -11,6 +11,7 @@ export const Button = styled.button`
   border: 1px solid #ebebeb;
   border-radius: 0.8rem;
   transition: none;
+  cursor: pointer;
   box-shadow: 0 2px 3px #999;
   &:hover {
     background-color: ${props =>
@@ -20,7 +21,8 @@ export const Button = styled.button`
     outline: 0;
   }
   &:active {
-    background-color: ${props => (props.primary ? primary.hex() : white.hex())};
+    background-color: ${props =>
+      props.primary ? primary.lighten(0.15).hex() : white.darken(0.15).hex()};
     box-shadow: 0 1px 2px #666;
     transform: translateY(2px);
   }
