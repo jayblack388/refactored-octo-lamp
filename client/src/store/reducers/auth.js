@@ -2,12 +2,12 @@ import {
   AUTH_FAILURE,
   AUTH_SUCCESS,
   INITIALIZE,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
 } from '../actions/types';
 
 export const authInitialState = {
   isAuthenticated: false,
-  authState: 'signIn'
+  authState: 'signIn',
 };
 
 const authReducer = (state = authInitialState, action) => {
@@ -19,23 +19,25 @@ const authReducer = (state = authInitialState, action) => {
       return {
         ...state,
         isAuthenticated,
-        authState: action.state
+        authState: action.state,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        authState: 'signedIn'
+        authState: 'signedIn',
       };
     case AUTH_FAILURE:
       return {
         ...state,
         isAuthenticated,
-        authState: ''
+        authState: '',
       };
     default:
       return state;
   }
 };
+
+export const authSuccess = state => ({ type: AUTH_SUCCESS, state });
 
 export default authReducer;

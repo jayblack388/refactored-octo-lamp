@@ -4,7 +4,10 @@ import { Authenticator } from 'aws-amplify-react';
 
 import { useGlobalState } from '../../store/GlobalState';
 import * as actions from '../../store/actions/types';
-import { getConfig, getUserData } from '../../utils/API';
+import { getUserData } from '../../utils/API';
+import { configureAuth } from '../../store/reducers/config';
+import { authSuccess } from '../../store/reducers/auth';
+import { login } from '../../store/reducers/user';
 import { Loader } from '../common';
 
 const mapUser = async cognitoUser => {
@@ -13,19 +16,19 @@ const mapUser = async cognitoUser => {
   const {
     refreshToken: { token: refreshToken },
     idToken: { jwtToken: idToken },
-    accessToken: { jwtToken: accessToken }
+    accessToken: { jwtToken: accessToken },
   } = signInUserSession;
   const response = await getUserData(email);
   const user = {
     details: {
       email,
-      ...response.data
+      ...response.data,
     },
     tokens: {
       accessToken,
       idToken,
-      refreshToken
-    }
+      refreshToken,
+    },
   };
   return user;
 };
@@ -39,62 +42,54 @@ const CustomAuthenticator = props => {
     config,
     user: {
       user: {
-        details: { email }
-      }
-    }
+        details: { email },
+      },
+    },
   } = store;
   const {
     isLoading: configIsLoading,
-    config: { userPoolId, userPoolWebClientId }
+    config: { userPoolId, userPoolWebClientId },
   } = config;
-  const getErrorMessage = err => (typeof err === 'string' ? err : err.message);
+  // const getErrorMessage = err => (typeof err === 'string' ? err : err.message);
 
   const setIsAuthenticated = state => {
-    return dispatch({ type: actions.AUTH_SUCCESS, state });
+    return dispatch(authSuccess(state));
   };
 
-  const configRequest = () => {
-    dispatch({ type: actions.CONFIG_REQUEST });
-    getConfig()
-      .then(({ data }) => {
-        return dispatch({ type: actions.CONFIG_SUCCESS, config: data });
-      })
-      .catch(err => {
-        return dispatch({ type: actions.CONFIG_FAILURE, error: err });
-      });
-  };
+  // const onLogin = (username, password) => {
+  //   dispatch({ type: actions.LOGIN_REQUEST });
+  //   const response = Auth.signIn(username, password)
+  //     .then(async cognitoUser => {
+  //       const user = await mapUser(cognitoUser);
+  //       console.log('user :::', user);
+  //       dispatch({
+  //         type: actions.LOGIN_SUCCESS,
+  //         user,
+  //       });
+  //     })
+  //     .catch(err => {
+  //       dispatch({
+  //         type: actions.LOGIN_FAILURE,
+  //         error: err,
+  //       });
+  //       console.log('auth.error :::', err);
+  //       if (err.code === 'UserNotConfirmedException') {
+  //         Auth.resendSignUp(username).then(() => {
+  //           console.log('code resent successfully');
+  //           const error = { code: err.code, message: err.message };
+  //           return { error };
+  //         });
+  //       }
+  //       const error = err.code
+  //         ? { code: err.code, message: err.message }
+  //         : { message: getErrorMessage(err) };
+  //       return { error };
+  //     });
 
-  const onLogin = (username, password) => {
-    dispatch({ type: actions.LOGIN_REQUEST });
-    const response = Auth.signIn(username, password)
-      .then(async cognitoUser => {
-        const user = await mapUser(cognitoUser);
-        console.log('user :::', user);
-        dispatch({
-          type: actions.LOGIN_SUCCESS,
-          user
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: actions.LOGIN_FAILURE,
-          error: err
-        });
-        console.log('auth.error :::', err);
-        if (err.code === 'UserNotConfirmedException') {
-          Auth.resendSignUp(username).then(() => {
-            console.log('code resent successfully');
-            const error = { code: err.code, message: err.message };
-            return { error };
-          });
-        }
-        const error = err.code
-          ? { code: err.code, message: err.message }
-          : { message: getErrorMessage(err) };
-        return { error };
-      });
-
-    return response;
+  //   return response;
+  // };
+  const onLogin = (email, password) => {
+    login(dispatch, { email, password });
   };
 
   // const onSignUp = (username, password, attributes) => {
@@ -120,7 +115,7 @@ const CustomAuthenticator = props => {
     const currentUser = Auth.userPool.getCurrentUser();
     currentUser.signOut();
     dispatch({
-      type: actions.INITIALIZE
+      type: actions.INITIALIZE,
     });
   };
 
@@ -128,20 +123,20 @@ const CustomAuthenticator = props => {
     if (!email && isAuthenticated) {
       dispatch({ type: actions.LOGIN_REQUEST });
       Auth.currentAuthenticatedUser({
-        bypassCache: true
+        bypassCache: true,
       })
         .then(async cognitoUser => {
           const user = await mapUser(cognitoUser);
           console.log('user :::', user);
           dispatch({
             type: actions.LOGIN_SUCCESS,
-            user
+            user,
           });
         })
         .catch(err =>
           dispatch({
             type: actions.LOGIN_FAILURE,
-            error: err
+            error: err,
           })
         );
     }
@@ -149,7 +144,7 @@ const CustomAuthenticator = props => {
 
   useEffect(() => {
     if (config && !(userPoolId && userPoolWebClientId)) {
-      configRequest();
+      configureAuth(dispatch);
     }
   }, []);
   !configIsLoading &&
@@ -159,8 +154,8 @@ const CustomAuthenticator = props => {
         userPoolId,
         userPoolWebClientId,
         mandatorySignIn: false,
-        authenticationFlowType: 'USER_SRP_AUTH'
-      }
+        authenticationFlowType: 'USER_SRP_AUTH',
+      },
     });
   return (
     <Loader isLoading={configIsLoading}>
@@ -177,7 +172,7 @@ const CustomAuthenticator = props => {
           return React.cloneElement(child, {
             onLogin,
             // onSignUp,
-            onLogout
+            onLogout,
           });
         })}
       </Authenticator>
