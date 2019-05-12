@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const useHover = () => {
   const [isHovered, setIsHovered] = useState(false);
   const toggleHover = () => setIsHovered(!isHovered);

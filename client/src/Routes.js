@@ -1,12 +1,12 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Header, Loader } from './components/common';
 import { HomePage, Login, Signup } from './components/pages';
 import { useGlobalState } from './store/GlobalState';
 
 const Routes = props => {
   const { onLogout } = props;
-  const [{ auth, user }, dispatch] = useGlobalState();
+  const [{ auth }] = useGlobalState();
   const { isAuthenticated, authState } = auth;
   return (
     <div id="App">

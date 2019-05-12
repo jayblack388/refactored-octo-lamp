@@ -1,4 +1,3 @@
-import Color from 'color';
 import styled from 'styled-components';
 import DefaultButton from '../Button';
 
