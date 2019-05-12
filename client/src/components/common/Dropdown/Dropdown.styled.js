@@ -11,9 +11,12 @@ export const DropdownMenu = styled(animated.ul)`
   background-color: ${props => props.color || '#fff'};
   border: 1px solid #ebebeb;
   position: absolute;
-  padding: 0;
+  padding: 0.25rem 0.5rem;
   border-radius: 0.8rem;
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: fit-content;
   right: 0;
