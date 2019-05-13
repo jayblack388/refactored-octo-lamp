@@ -6,12 +6,12 @@ import { useGlobalState } from './store/GlobalState';
 
 const Routes = props => {
   const { onLogout } = props;
-  const [{ auth }] = useGlobalState();
+  const [{ auth, user }] = useGlobalState();
   const { isAuthenticated, authState } = auth;
   return (
     <div id="App">
       <Loader
-        isLoading={authState === 'loading'}
+        isLoading={authState === 'loading' || (user && user.isLoading)}
         message="Loading authentication..."
       >
         <Switch>

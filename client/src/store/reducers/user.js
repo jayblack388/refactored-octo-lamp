@@ -5,6 +5,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from '../actions/types';
 
 export const userInitialState = {
@@ -12,15 +15,11 @@ export const userInitialState = {
   error: null,
   user: {
     tokens: {
-      accessToken: {
-        jwtToken: null,
-      },
-      idToken: {
-        jwtToken: null,
-      },
-      refreshToken: {
-        token: null,
-      },
+      accessToken: null,
+
+      idToken: null,
+
+      refreshToken: null,
     },
     details: {
       email: null,
@@ -28,37 +27,11 @@ export const userInitialState = {
   },
 };
 
-const mapData = (current = userInitialState.user, res) => {
-  const email = res && res.email;
-  const accessToken = res && res.accessToken;
-  const idToken = res && res.idToken;
-  const refreshToken = res && res.token;
-  // Adding Tokens
-  const tokens = {
-    ...current.tokens,
-  };
-  if (accessToken) tokens.accessToken.jwtToken = accessToken;
-  if (idToken) tokens.idToken.jwtToken = idToken;
-  if (refreshToken) tokens.refreshToken.token = refreshToken;
-  // Adding Details
-  const details = {
-    ...current.details,
-  };
-  if (email) details.email = email;
-  // Spreading in tokens and details
-  const response = {
-    ...current,
-    tokens,
-    details,
-  };
-
-  return response;
-};
-
 const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case INITIALIZE:
     case INITIALIZE_USER:
+    case LOGOUT_SUCCESS:
       return userInitialState;
     case LOGIN_REQUEST:
       return {
@@ -69,9 +42,20 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         isLoading: false,
-        user: mapData(action.user, state.user),
+        user: action.user,
       };
     case LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    case LOGOUT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case LOGOUT_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -96,6 +80,20 @@ export const loginFailure = error => ({
   error,
 });
 
+export const logoutRequest = () => ({
+  type: LOGOUT_REQUEST,
+});
+
+export const logoutSuccess = user => ({
+  type: LOGOUT_SUCCESS,
+  user,
+});
+
+export const logoutFailure = error => ({
+  type: LOGOUT_FAILURE,
+  error,
+});
+
 export const login = (dispatch, data) => {
   const url = `/auth/login`;
   dispatch(loginRequest());
@@ -108,8 +106,14 @@ export const login = (dispatch, data) => {
     data,
   })
     .then(resp => {
-      const data = resp && resp.data;
-      console.log(resp, data);
+      const { data } = resp;
+      const { details, tokens } = data;
+      const { email } = details;
+      const { accessToken, refreshToken, idToken } = tokens;
+      localStorage.setItem('email', email);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('idToken', idToken);
       dispatch(loginSuccess(data));
     })
     .catch(e => {
@@ -117,5 +121,47 @@ export const login = (dispatch, data) => {
     });
 };
 
+export const refreshLogin = (dispatch, data) => {
+  const url = `/auth/renew`;
+  dispatch(loginRequest());
+  axios({
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'post',
+    data,
+  })
+    .then(resp => {
+      const { data } = resp;
+      dispatch(loginSuccess(data));
+    })
+    .catch(e => {
+      dispatch(loginFailure(e));
+    });
+};
+
+export const logout = (dispatch, data) => {
+  const url = `/auth/logout`;
+  dispatch(logoutRequest());
+  axios({
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'post',
+    data,
+  })
+    .then(() => {
+      localStorage.removeItem('email');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('idToken');
+      dispatch(logoutSuccess());
+    })
+    .catch(e => {
+      dispatch(logoutFailure(e));
+    });
+};
 
 export default userReducer;

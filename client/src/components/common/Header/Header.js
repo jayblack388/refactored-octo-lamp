@@ -17,11 +17,14 @@ const Header = props => {
       },
     },
   ] = useGlobalState();
-  console.log(user);
+  const {
+    name: { firstName, lastName },
+  } = user;
+  const name = `${firstName} ${lastName}`;
   return (
     <Container>
       <BrandLink />
-      <Dropdown message={user.name} items={items} />
+      <Dropdown message={name} items={items} />
     </Container>
   );
 };
