@@ -6,7 +6,7 @@ const cognito = require('../cognito');
 router.route('/config').get(function(req, res) {
   res.status(200).json({
     userPoolId: cognitoKeys.poolId,
-    userPoolWebClientId: cognitoKeys.clientId
+    userPoolWebClientId: cognitoKeys.clientId,
   });
 });
 
@@ -17,6 +17,12 @@ router.route('/login').post(function(req, res) {
   } else {
     cognito.Login(req, res);
   }
+});
+router.route('/logout').post(function(req, res) {
+  cognito.Logout(req, res);
+});
+router.route('/renew').post(function(req, res) {
+  cognito.Renew(req, res);
 });
 
 module.exports = router;
