@@ -36,7 +36,7 @@ const CustomAuthenticator = props => {
     return dispatch(authSuccess(state));
   };
 
-  const onLogin = (email, password) => {
+  const onLogin = ({email, password}) => {
     login(dispatch, { email, password });
   };
 
