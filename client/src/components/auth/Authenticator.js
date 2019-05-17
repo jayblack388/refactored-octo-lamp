@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import { Authenticator } from 'aws-amplify-react';
 
 import { useGlobalState } from '../../store/GlobalState';
-import * as actions from '../../store/actions/types';
-import { getUserData } from '../../utils/API';
 import { useLocalStorage } from '../../utils/customHooks';
 import { configureAuth } from '../../store/reducers/config';
 import { authSuccess } from '../../store/reducers/auth';
-import { login, logout, refreshLogin } from '../../store/reducers/user';
+import { login, logout, refreshLogin, signUp } from '../../store/reducers/user';
 import { Loader } from '../common';
 
 const CustomAuthenticator = props => {
@@ -17,13 +15,13 @@ const CustomAuthenticator = props => {
   const [store, dispatch] = useGlobalState();
   const {
     config,
-    user: {
-      user: {
-        details: { email },
-        tokens: { refreshToken },
-      },
-    },
+    user: { user },
   } = store;
+  console.log(user);
+  const {
+    details: { email },
+    tokens: { refreshToken },
+  } = user;
   const [lclEmail] = useLocalStorage('email', email);
   const [lclRefTok] = useLocalStorage('refreshToken', refreshToken);
   const {
@@ -36,28 +34,13 @@ const CustomAuthenticator = props => {
     return dispatch(authSuccess(state));
   };
 
-  const onLogin = ({email, password}) => {
-    login(dispatch, { email, password });
+  const onLogin = body => {
+    login(dispatch, body);
   };
 
-  // const onSignUp = (username, password, attributes) => {
-  //   const response = Auth.signUp({
-  //     username,
-  //     password,
-  //     attributes,
-  //     validationData: [] // optional
-  //   })
-  //     .then(data => {
-  //       return data;
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       const error = this.getErrorMessage(err);
-  //       return { error };
-  //     });
-
-  //   return response;
-  // };
+  const onSignUp = body => {
+    signUp(dispatch, body);
+  };
 
   const onLogout = () => {
     logout(dispatch, { email });
@@ -98,7 +81,7 @@ const CustomAuthenticator = props => {
         {React.Children.map(children, child => {
           return React.cloneElement(child, {
             onLogin,
-            // onSignUp,
+            onSignUp,
             onLogout,
           });
         })}

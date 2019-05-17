@@ -13,16 +13,22 @@ const poolData = {
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 function RegisterUser(req, res) {
-  const { email, password } = req.body;
-  var attributeList = [];
+  const { email, password, name } = req.body;
+  const attributeList = [];
   userPool.signUp(email, password, attributeList, null, function(err, result) {
     if (err) {
       console.log(err);
       return;
     }
-    cognitoUser = result.user;
-    console.log('user name is ' + cognitoUser.getUsername());
-    res.json(cognitoUser);
+    const confirmed = result.userConfirmed;
+    User.create({ email, name })
+      .then(dbUser => {
+        res.status(200).json({
+          confirmed,
+          details: dbUser,
+        });
+      })
+      .catch(e => console.log(e));
   });
 }
 function ConfirmUser(req, res) {
