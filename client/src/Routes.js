@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Header, Loader } from './components/common';
-import { HomePage, Login, Signup } from './components/pages';
+import { HomePage, Auth } from './components/pages';
 import { useGlobalState } from './store/GlobalState';
 
 const Routes = props => {
@@ -15,8 +15,16 @@ const Routes = props => {
         message="Loading authentication..."
       >
         <Switch>
-          <Route exact path="/login" render={() => <Login {...props} />} />
-          <Route exact path="/signup" render={() => <Signup {...props} />} />
+          <Route
+            exact
+            path="/login"
+            render={() => <Auth type="login" {...props} />}
+          />
+          <Route
+            exact
+            path="/signup"
+            render={() => <Auth type="signup" {...props} />}
+          />
           <Route
             path="*"
             render={() =>
@@ -26,7 +34,7 @@ const Routes = props => {
                   <HomePage {...props} />
                 </>
               ) : (
-                <Login {...props} />
+                <Auth {...props} />
               )
             }
           />
