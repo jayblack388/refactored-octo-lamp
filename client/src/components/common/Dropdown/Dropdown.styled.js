@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
-import DefaultButton from '../Button';
+import { Button as DefaultButton } from '../Button';
 
 export const DropdownContainer = styled.div`
   position: relative;

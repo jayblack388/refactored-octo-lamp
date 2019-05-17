@@ -1,9 +1,14 @@
 import React from 'react';
-import { Button as StyledButton } from './Button.styled';
+import { StyledButton, StyledLinkButton } from './Button.styled';
 
-const Button = props => {
+export const Button = props => {
   const { message, children = <span /> } = props;
   return <StyledButton {...props}>{message || children}</StyledButton>;
+};
+
+export const LinkButton = props => {
+  const { message, children = <span /> } = props;
+  return <StyledLinkButton {...props}>{message || children}</StyledLinkButton>;
 };
 
 export default Button;

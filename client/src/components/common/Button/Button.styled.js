@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const white = Color('#fff');
 const primary = Color('#0062ff');
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   background-color: ${props => (props.primary ? primary.hex() : white.hex())};
   padding: 0.8rem 1.6rem;
   color: ${props => (props.primary ? white.hex() : primary.hex())};
@@ -25,5 +25,22 @@ export const Button = styled.button`
       props.primary ? primary.lighten(0.15).hex() : white.darken(0.15).hex()};
     box-shadow: 0 1px 2px #666;
     transform: translateY(2px);
+  }
+`;
+
+export const StyledLinkButton = styled.button`
+  padding: 0.8rem 1.6rem;
+  color: ${props => (props.blue ? primary.hex() : '#000')};
+  text-decoration: underline;
+  background: none;
+  border: none;
+  &:active {
+    color: ${props => (props.blue ? primary.darken(0.15).hex() : '#000')};
+  }
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    color: ${props => (props.blue ? primary.darken(0.15).hex() : '#000')};
   }
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import DefaultButton from '../Button';
+import { Button as DefaultButton } from '../Button';
 
 export const Container = styled.nav`
   background-color: #cecece;
@@ -9,5 +9,4 @@ export const Container = styled.nav`
   justify-content: space-between;
 `;
 
-export const Button = styled(DefaultButton)`
-`;
+export const Button = styled(DefaultButton)``;
