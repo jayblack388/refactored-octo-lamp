@@ -14,12 +14,14 @@ export const Input = styled.input.attrs({
   placeholder: props => props.placeholder || 'Fll me out 🖊',
 })`
   font-size: 0.8rem;
+  width: ${props => props.inputWidth || '40%'};
 `;
 
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
-  width: ${props => props.width || '40%'};
+  align-items: ${props => props.align || 'center'};
+  width: ${props => props.labelWidth || '100%'};
 `;
 
 export const LabelText = styled.span`
