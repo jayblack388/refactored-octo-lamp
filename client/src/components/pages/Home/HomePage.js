@@ -7,7 +7,7 @@ const HomePage = props => {
 
   return (
     <Page>
-      <Wrapper fullHeight>
+      <Wrapper>
         <Loader isLoading={isLoading} >
           <span>I'm the Home Page</span>
           {user.details.email}
