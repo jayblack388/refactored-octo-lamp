@@ -14,7 +14,7 @@ export const Input = styled.input.attrs({
   placeholder: props => props.placeholder || 'Fll me out 🖊',
 })`
   font-size: 0.8rem;
-  width: ${props => props.inputWidth || '40%'};
+  width: ${props => props.inputWidth || '50%'};
 `;
 
 export const Label = styled.label`
