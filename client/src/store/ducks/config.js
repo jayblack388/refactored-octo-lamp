@@ -1,11 +1,9 @@
 import axios from 'axios';
-import {
-  INITIALIZE,
-  INITIALIZE_CONFIG,
-  CONFIG_REQUEST,
-  CONFIG_SUCCESS,
-  CONFIG_FAILURE,
-} from '../actions/types';
+import { INITIALIZE } from './auth';
+export const INITIALIZE_CONFIG = 'INITIALIZE_CONFIG';
+export const CONFIG_REQUEST = 'CONFIG_REQUEST';
+export const CONFIG_SUCCESS = 'CONFIG_SUCCESS';
+export const CONFIG_FAILURE = 'CONFIG_FAILURE';
 
 export const configInitialState = {
   isLoading: false,
@@ -72,7 +70,6 @@ export const configureAuth = dispatch => {
     method: 'get',
   })
     .then(({ data }) => {
-      console.log(data);
       dispatch(configSuccess(data));
     })
     .catch(e => {

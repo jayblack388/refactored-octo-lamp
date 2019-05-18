@@ -1,17 +1,15 @@
 import axios from 'axios';
-import {
-  INITIALIZE,
-  INITIALIZE_USER,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-} from '../actions/types';
+import { INITIALIZE } from './auth';
+export const INITIALIZE_USER = 'INITIALIZE_USER';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 export const userInitialState = {
   confirmed: false,
@@ -122,15 +120,7 @@ export const signUp = (dispatch, data) => {
     data,
   })
     .then(resp => {
-      console.log(resp);
       const { data } = resp;
-      // const { details, tokens } = data;
-      // const { email } = details;
-      // const { accessToken, refreshToken, idToken } = tokens;
-      // localStorage.setItem('email', email);
-      // localStorage.setItem('accessToken', accessToken);
-      // localStorage.setItem('refreshToken', refreshToken);
-      // localStorage.setItem('idToken', idToken);
       dispatch(signUpSuccess(data));
     })
     .catch(e => {

@@ -1,10 +1,8 @@
-import {
-  AUTH_FAILURE,
-  AUTH_SUCCESS,
-  INITIALIZE,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
-} from '../actions/types';
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from './user';
+
+export const INITIALIZE = 'INITIALIZE';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 
 export const authInitialState = {
   isAuthenticated: false,
