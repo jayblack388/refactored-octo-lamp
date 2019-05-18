@@ -1,4 +1,4 @@
-import { auth, config, user } from './reducers';
+import { auth, config, user } from './ducks';
 
 export const store = {
   auth,
@@ -6,4 +6,4 @@ export const store = {
   user
 };
 
-export { default as rootReducer } from './reducers';
+export { default as rootReducer } from './ducks';

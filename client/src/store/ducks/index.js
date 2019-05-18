@@ -13,7 +13,7 @@ const combineReducers = reducers => {
 const rootReducer = combineReducers({
   auth: authReducer,
   config: configReducer,
-  user: userReducer
+  user: userReducer,
 });
 
 export { authInitialState as auth } from './auth';

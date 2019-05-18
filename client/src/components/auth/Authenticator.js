@@ -4,9 +4,9 @@ import { Authenticator } from 'aws-amplify-react';
 
 import { useGlobalState } from '../../store/GlobalState';
 import { useLocalStorage } from '../../utils/customHooks';
-import { configureAuth } from '../../store/reducers/config';
-import { authSuccess } from '../../store/reducers/auth';
-import { login, logout, refreshLogin, signUp } from '../../store/reducers/user';
+import { configureAuth } from '../../store/ducks/config';
+import { authSuccess } from '../../store/ducks/auth';
+import { login, logout, refreshLogin, signUp } from '../../store/ducks/user';
 import { Loader } from '../common';
 
 const CustomAuthenticator = props => {
