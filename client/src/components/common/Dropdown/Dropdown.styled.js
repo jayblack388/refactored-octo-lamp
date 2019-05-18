@@ -9,7 +9,7 @@ export const DropdownContainer = styled.div`
 export const DropdownMenu = styled(animated.ul)`
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
   background-color: ${props => props.color || '#fff'};
-  border: 1px solid #ebebeb;
+  border: 1px solid ${props => props.theme.border || '#000'};
   position: absolute;
   padding: 0.25rem 0.5rem;
   border-radius: 0.8rem;
@@ -26,7 +26,7 @@ export const DropdownMenu = styled(animated.ul)`
 export const DropdownItem = styled.li`
   display: flex;
   cursor: pointer;
-  color: #000;
+  color: ${props => props.theme.dark || '#000'};
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -34,8 +34,8 @@ export const DropdownItem = styled.li`
 `;
 
 export const DropdownToggler = styled(DefaultButton)`
-  border: 1px solid #ebebeb;
+  border: 1px solid ${props => props.theme.border || '#000'};
   transition: none;
-  box-shadow: 0 2px 3px #999;
+  box-shadow: 0 2px 3px ${props => props.theme.dark || '#000'};
   width: 100%;
 `;

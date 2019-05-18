@@ -20,7 +20,7 @@ export const Input = styled.input.attrs(props => ({
   border-top: transparent !important;
   border-left: transparent !important;
   border-right: transparent !important;
-  border-bottom: 1px solid #000 !important;
+  border-bottom: 1px solid ${props => props.theme.darkens.border || '#000'} !important;
   &:focus {
     outline: 0;
   }

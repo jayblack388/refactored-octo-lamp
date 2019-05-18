@@ -9,17 +9,17 @@ export const Logo = styled.img`
 `;
 
 export const BrandLink = styled(Link)`
-  border: 1px solid #ebebeb;
+  border: 1px solid ${props => props.theme.border || '#000'};
   border-radius: 50%;
   transition: none;
-  box-shadow: 0 2px 3px #999;
+  box-shadow: 0 2px 3px ${props => props.theme.dark || '#000'};
   width: 40px;
   height: 40px;
   &:focus {
     outline: 0;
   }
   &:active {
-    box-shadow: 0 1px 2px #666;
+    box-shadow: 0 1px 2px ${props => props.theme.lightens.dark || '#000'};
     transform: translateY(2px);
   }
 `;

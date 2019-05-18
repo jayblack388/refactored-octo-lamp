@@ -70,6 +70,7 @@ const AuthForm = props => {
       <Wrapper height={isLogin ? '80%' : '40%'}>
         <Input
           width="90%"
+          inputWidth="60%"
           label="Username:"
           type="text"
           value={email}
@@ -77,6 +78,7 @@ const AuthForm = props => {
         />
         <Input
           width="90%"
+          inputWidth="60%"
           label="Password:"
           type="password"
           value={password}
