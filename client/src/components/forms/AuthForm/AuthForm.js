@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input, LinkButton } from '../../common';
 import { Wrapper } from '../../containers';
 import { useRouter } from '../../../utils/customHooks';
-import { Form } from './AuthForm.styled';
+import { Form, Heading } from './AuthForm.styled';
 
 const AuthForm = props => {
   const { type, setType } = props;
@@ -12,11 +12,13 @@ const AuthForm = props => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [code, setCode] = useState('');
+  const [showCode, setShowCode] = useState(false);
   const { history } = useRouter();
 
   const body = {
     email,
     password,
+    code,
   };
   const name = {
     firstName,
@@ -31,17 +33,25 @@ const AuthForm = props => {
 
   const toggleType = e => {
     e.preventDefault();
+    if (showCode) {
+      setShowCode(false);
+    }
     setType(isLogin ? 'signup' : 'login');
+  };
+
+  const toggleShowCode = e => {
+    e.preventDefault();
+    setShowCode(!showCode);
   };
 
   return (
     <Form isLogin={isLogin} onSubmit={handleSubmit}>
-      <h3>{isLogin ? 'Login' : 'Sign Up'}</h3>
+      <Heading>{isLogin ? 'Login' : 'Sign Up'}</Heading>
       {!isLogin && (
         <Wrapper height="20%" direction="row">
           <Input
             width="80%"
-            inputWidth="70%"
+            inputWidth="85%"
             label="First Name:"
             type="text"
             value={firstName}
@@ -49,7 +59,7 @@ const AuthForm = props => {
           />
           <Input
             width="80%"
-            inputWidth="70%"
+            inputWidth="85%"
             label="Last Name:"
             type="text"
             value={lastName}
@@ -72,6 +82,24 @@ const AuthForm = props => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        {isLogin && showCode && (
+          <Input
+            width="50%"
+            label="Login Code:"
+            type="text"
+            value={code}
+            onChange={e => setCode(e.target.value)}
+          />
+        )}
+        {isLogin && (
+          <LinkButton
+            blue
+            message={
+              showCode ? 'Sign up to get a code' : 'First time logging in?'
+            }
+            onClick={showCode ? toggleType : toggleShowCode}
+          />
+        )}
       </Wrapper>
       <Wrapper height="20%">
         <LinkButton

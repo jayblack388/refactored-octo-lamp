@@ -47,8 +47,7 @@ function ConfirmUser(req, res) {
         err.message === 'User cannot be confirm. Current status is CONFIRMED')
     ) {
       Login(req, res);
-    }
-    if (err) {
+    } else {
       console.log('error: ', err);
     }
   });

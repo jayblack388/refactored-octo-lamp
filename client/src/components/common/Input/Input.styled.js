@@ -9,12 +9,21 @@ export const InputContainer = styled.div`
   width: ${props => props.width || '40%'};
 `;
 
-export const Input = styled.input.attrs({
-  type: props => props.type || 'text',
-  placeholder: props => props.placeholder || 'Fll me out 🖊',
-})`
+export const Input = styled.input.attrs(props => ({
+  type: props.type || 'text',
+  placeholder: props.placeholder || 'Fll me out 🖊',
+}))`
   font-size: 0.8rem;
   width: ${props => props.inputWidth || '50%'};
+  box-shadow: none !important;
+  background: transparent;
+  border-top: transparent !important;
+  border-left: transparent !important;
+  border-right: transparent !important;
+  border-bottom: 1px solid #000 !important;
+  &:focus {
+    outline: 0;
+  }
 `;
 
 export const Label = styled.label`
