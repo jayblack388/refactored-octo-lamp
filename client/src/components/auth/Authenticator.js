@@ -17,7 +17,6 @@ const CustomAuthenticator = props => {
     config,
     user: { user },
   } = store;
-  console.log(user);
   const {
     details: { email },
     tokens: { refreshToken },

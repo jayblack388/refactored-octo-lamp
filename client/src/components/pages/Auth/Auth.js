@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Page, Wrapper } from '../../containers';
 import AuthForm from '../../forms/AuthForm/AuthForm';
+import { FlipCard } from '../../animations';
 
 const AuthPage = props => {
-  const [type, setType] = useState(props.type || 'login');
+  const [flipped, setFlipped] = useState(false);
   return (
     <Page>
       <Wrapper>
-        <AuthForm type={type} setType={setType} {...props} />
+        <FlipCard flipped={flipped}>
+          <AuthForm type={'login'} setType={() => setFlipped(!flipped)} />
+          <AuthForm type={'signup'} setType={() => setFlipped(!flipped)} />
+        </FlipCard>
       </Wrapper>
     </Page>
   );

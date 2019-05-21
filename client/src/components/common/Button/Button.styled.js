@@ -36,6 +36,7 @@ export const StyledLinkButton = styled.button`
   text-decoration: underline;
   background: none;
   border: none;
+  cursor: pointer;
   &:active {
     color: ${props =>
       props.blue

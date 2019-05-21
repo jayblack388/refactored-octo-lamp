@@ -3,6 +3,8 @@ import { Button, Input, LinkButton } from '../../common';
 import { Wrapper } from '../../containers';
 import { useRouter } from '../../../utils/customHooks';
 import { Form, Heading } from './AuthForm.styled';
+import { useGlobalState } from '../../../store/GlobalState';
+import { login, signUp } from '../../../store/ducks/user';
 
 const AuthForm = props => {
   const { type, setType } = props;
@@ -14,6 +16,7 @@ const AuthForm = props => {
   const [code, setCode] = useState('');
   const [showCode, setShowCode] = useState(false);
   const { history } = useRouter();
+  const [, dispatch] = useGlobalState();
 
   const body = {
     email,
@@ -27,23 +30,24 @@ const AuthForm = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    isLogin ? props.onLogin(body) : props.onSignUp({ ...body, name });
+    isLogin ? login(dispatch, body) : signUp(dispatch, { ...body, name });
     history.push('/');
   };
 
   const toggleType = e => {
+    console.log('change type');
+    console.log(setType);
     e.preventDefault();
     if (showCode) {
       setShowCode(false);
     }
-    setType(isLogin ? 'signup' : 'login');
+    setType();
   };
 
   const toggleShowCode = e => {
     e.preventDefault();
     setShowCode(!showCode);
   };
-
   return (
     <Form isLogin={isLogin} onSubmit={handleSubmit}>
       <Heading>{isLogin ? 'Login' : 'Sign Up'}</Heading>
