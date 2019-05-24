@@ -7,7 +7,7 @@ export const CONFIG_FAILURE = 'CONFIG_FAILURE';
 
 export const configInitialState = {
   isLoading: false,
-  error: null,
+  err: null,
   config: {
     userPoolId: null,
     userPoolWebClientId: null,
@@ -33,7 +33,7 @@ const configReducer = (state = configInitialState, action) => {
     case CONFIG_FAILURE:
       return {
         ...state,
-        error: action.error,
+        err: action.err,
         isLoading: false,
       };
     default:
@@ -50,9 +50,9 @@ const configSuccess = config => ({
   config,
 });
 
-const configFailure = error => ({
+const configFailure = err => ({
   type: CONFIG_FAILURE,
-  error,
+  err,
 });
 
 export const initConfig = () => ({

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { INITIALIZE } from './auth';
 export const INITIALIZE_USER = 'INITIALIZE_USER';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -14,7 +15,7 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const userInitialState = {
   confirmed: false,
   isLoading: false,
-  error: null,
+  err: null,
   user: {
     tokens: {
       accessToken: null,
@@ -48,7 +49,7 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.error,
+        err: action.err,
       };
     case LOGIN_SUCCESS:
       return {
@@ -79,9 +80,9 @@ export const signUpSuccess = ({ details, confirmed }) => ({
   details,
   confirmed: confirmed,
 });
-export const signUpFailure = error => ({
+export const signUpFailure = err => ({
   type: SIGNUP_FAILURE,
-  error,
+  err,
 });
 
 export const loginRequest = () => ({
@@ -91,9 +92,9 @@ export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
   user,
 });
-export const loginFailure = error => ({
+export const loginFailure = err => ({
   type: LOGIN_FAILURE,
-  error,
+  err,
 });
 
 export const logoutRequest = () => ({
@@ -103,9 +104,9 @@ export const logoutSuccess = user => ({
   type: LOGOUT_SUCCESS,
   user,
 });
-export const logoutFailure = error => ({
+export const logoutFailure = err => ({
   type: LOGOUT_FAILURE,
-  error,
+  err,
 });
 
 export const signUp = (dispatch, data) => {
@@ -152,6 +153,8 @@ export const login = (dispatch, data) => {
     })
     .catch(e => {
       dispatch(loginFailure(e));
+      toast.err('err');
+      console.log(e);
     });
 };
 

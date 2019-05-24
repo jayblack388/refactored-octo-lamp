@@ -48,7 +48,7 @@ function ConfirmUser(req, res) {
     ) {
       Login(req, res);
     } else {
-      console.log('error: ', err);
+      console.log('err: ', err);
     }
   });
 }
@@ -81,7 +81,7 @@ function Login(req, res) {
       });
     },
     onFailure: function(err) {
-      res.status(500).send(err);
+      res.status(403).json(err);
     },
   });
 }
