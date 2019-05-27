@@ -1,6 +1,8 @@
 import axios from 'axios';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { INITIALIZE } from './auth';
+import { ToastContainer } from '../../components/common';
 export const INITIALIZE_USER = 'INITIALIZE_USER';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -124,8 +126,9 @@ export const signUp = (dispatch, data) => {
       const { data } = resp;
       dispatch(signUpSuccess(data));
     })
-    .catch(e => {
-      dispatch(signUpFailure(e));
+    .catch(err => {
+      dispatch(signUpFailure(err));
+      toast(<ToastContainer error message={err.response.data.message} />);
     });
 };
 
@@ -151,10 +154,9 @@ export const login = (dispatch, data) => {
       localStorage.setItem('idToken', idToken);
       dispatch(loginSuccess(data));
     })
-    .catch(e => {
-      dispatch(loginFailure(e));
-      toast.err('err');
-      console.log(e);
+    .catch(err => {
+      dispatch(loginFailure(err.response.data.message));
+      toast(<ToastContainer error message={err.response.data.message} />);
     });
 };
 
