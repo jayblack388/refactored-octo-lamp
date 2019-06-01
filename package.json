@@ -36,8 +36,6 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "history": "^4.9.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwk-to-pem": "^2.0.1",
     "mongoose": "^5.5.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
@@ -56,6 +54,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "^2.1.8",
     "react-spring": "^8.0.20",
+    "react-toastify": "^5.2.1",
     "styled-components": "^4.2.0"
   }
 }
