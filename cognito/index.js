@@ -17,8 +17,7 @@ function RegisterUser(req, res) {
   const attributeList = [];
   userPool.signUp(email, password, attributeList, null, function(err, result) {
     if (err) {
-      console.log(err);
-      return;
+      res.status(403).json(err);
     }
     const confirmed = result.userConfirmed;
     User.create({ email, name })
@@ -28,7 +27,7 @@ function RegisterUser(req, res) {
           details: dbUser,
         });
       })
-      .catch(e => console.log(e));
+      .catch(err => res.status(403).json(err));
   });
 }
 function ConfirmUser(req, res) {
@@ -48,7 +47,7 @@ function ConfirmUser(req, res) {
     ) {
       Login(req, res);
     } else {
-      console.log('error: ', err);
+      res.status(403).json(err);
     }
   });
 }
@@ -81,7 +80,7 @@ function Login(req, res) {
       });
     },
     onFailure: function(err) {
-      res.status(500).send(err);
+      res.status(403).json(err);
     },
   });
 }
