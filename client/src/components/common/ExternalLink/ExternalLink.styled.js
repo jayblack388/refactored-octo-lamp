@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import { buttonBoxShadow } from '../../../utils/styles/helpers';
 
 export const StyledExternalBtnLink = styled.a`
   background-color: ${props =>
     props.primary ? props.theme.primaryColor : props.theme.white};
   border-radius: 0.8rem;
   border: 1px solid ${props => props.theme.border || '#ebebeb'};
-  box-shadow: 0 2px 3px ${props => props.theme.dark || '#000'};
   color: ${props =>
     props.primary ? props.theme.white : props.theme.primaryColor};
   cursor: pointer;
@@ -20,7 +20,6 @@ export const StyledExternalBtnLink = styled.a`
       props.primary
         ? props.theme.lightens.primaryColor
         : props.theme.darkens.white};
-    box-shadow: 0 1px 2px ${props => props.theme.lightens.dark || '#000'};
     transform: translateY(2px);
   }
   &:focus {
@@ -32,6 +31,7 @@ export const StyledExternalBtnLink = styled.a`
         ? props.theme.lightens.primaryColor
         : props.theme.darkens.white};
   }
+  ${props => buttonBoxShadow(props)}
 `;
 
 export const StyledExternalLink = styled.a`

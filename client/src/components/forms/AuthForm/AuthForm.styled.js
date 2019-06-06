@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import flex from '../../../utils/styles/flex';
+import { flex } from '../../../utils/styles/helpers';
 
 export const Heading = styled.h3`
   font-size: 1.6rem;
