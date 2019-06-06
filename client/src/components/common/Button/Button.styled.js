@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { buttonBoxShadow } from '../../../utils/styles/helpers';
 
 export const StyledButton = styled.button`
   background-color: ${props =>
@@ -27,9 +28,9 @@ export const StyledButton = styled.button`
       props.primary
         ? props.theme.lightens.primaryColor
         : props.theme.darkens.white};
-    box-shadow: 0 1px 2px ${props => props.theme.lightens.dark || '#000'};
     transform: translateY(2px);
   }
+  ${props => buttonBoxShadow(props)}
 `;
 
 export const StyledLinkButton = styled.button`
