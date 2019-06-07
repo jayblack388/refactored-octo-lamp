@@ -33,6 +33,10 @@ export const StyledButton = styled.button`
   ${props => buttonBoxShadow(props)}
 `;
 
+export const ButtonText = styled.span`
+  font-weight: bold;
+`
+
 export const StyledLinkButton = styled.button`
   background: none;
   border: none;

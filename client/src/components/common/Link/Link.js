@@ -1,12 +1,21 @@
 import React from 'react';
 import { StyledBtnLink, StyledLink } from './Link.styled';
+import { ButtonText } from '../Button/Button.styled';
 
 export const ButtonLink = props => {
-  const { message, children = <span /> } = props;
-  return <StyledBtnLink {...props}>{message || children}</StyledBtnLink>;
+  const { message, children } = props;
+  return (
+    <StyledBtnLink {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledBtnLink>
+  );
 };
 
 export const Link = props => {
-  const { message, children = <span /> } = props;
-  return <StyledLink {...props}>{message || children}</StyledLink>;
+  const { message, children } = props;
+  return (
+    <StyledLink {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledLink>
+  );
 };

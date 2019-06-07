@@ -1,12 +1,24 @@
 import React from 'react';
-import { StyledExternalBtnLink, StyledExternalLink } from './ExternalLink.styled';
+import {
+  StyledExternalBtnLink,
+  StyledExternalLink
+} from './ExternalLink.styled';
+import { ButtonText } from '../Button/Button.styled';
 
 export const ExternalBtnLink = props => {
-  const { message, children = <span /> } = props;
-  return <StyledExternalBtnLink {...props}>{message || children}</StyledExternalBtnLink>;
+  const { message, children } = props;
+  return (
+    <StyledExternalBtnLink {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledExternalBtnLink>
+  );
 };
 
 export const ExternalLink = props => {
-  const { message, children = <span /> } = props;
-  return <StyledExternalLink {...props}>{message || children}</StyledExternalLink>;
+  const { message, children } = props;
+  return (
+    <StyledExternalLink {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledExternalLink>
+  );
 };
