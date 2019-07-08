@@ -54,8 +54,6 @@ function ConfirmUser(req, res) {
 
 function Login(req, res) {
   const { email, password } = req.body;
-  console.log(email);
-  console.log(userPool);
   var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
     Username: email,
     Password: password,
