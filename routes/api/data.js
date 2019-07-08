@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const dataController = require('../../controllers/dataController');
+const userController = require('../../controllers/userController');
 
-router.route('/').get(dataController.findAll);
-router.route('/:email').get(dataController.findByEmail);
+router.route('/').get(userController.findAll);
+router.route('/:email').get(userController.findByEmail);
 
 module.exports = router;
