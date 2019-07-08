@@ -6,7 +6,7 @@ export const ButtonLink = props => {
   const { message, children } = props;
   return (
     <StyledBtnLink {...props}>
-      <ButtonText>{message || children}</ButtonText>
+      <ButtonText bold={true}>{message || children}</ButtonText>
     </StyledBtnLink>
   );
 };

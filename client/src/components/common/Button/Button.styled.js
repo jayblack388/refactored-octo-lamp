@@ -34,15 +34,15 @@ export const StyledButton = styled.button`
 `;
 
 export const ButtonText = styled.span`
-  font-weight: bold;
-`
+  ${props => (props.bold ? 'font-weight: bold;' : '')}
+`;
 
 export const StyledLinkButton = styled.button`
   background: none;
   border: none;
   color: ${props => (props.blue ? props.theme.primaryColor : props.theme.dark)};
   cursor: pointer;
-  font-size: 1rem;
+  font-size: ${props => props.fontSize || '1rem'};
   padding: 0.8rem 1.6rem;
   text-decoration-color: ${props =>
     props.blue ? props.theme.primaryColor : props.theme.dark};

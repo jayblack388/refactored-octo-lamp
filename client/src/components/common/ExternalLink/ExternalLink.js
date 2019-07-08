@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   StyledExternalBtnLink,
-  StyledExternalLink
+  StyledExternalLink,
 } from './ExternalLink.styled';
 import { ButtonText } from '../Button/Button.styled';
 
@@ -9,7 +9,7 @@ export const ExternalBtnLink = props => {
   const { message, children } = props;
   return (
     <StyledExternalBtnLink {...props}>
-      <ButtonText>{message || children}</ButtonText>
+      <ButtonText bold={true}>{message || children}</ButtonText>
     </StyledExternalBtnLink>
   );
 };

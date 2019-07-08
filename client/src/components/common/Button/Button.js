@@ -5,7 +5,7 @@ export const Button = props => {
   const { message, children } = props;
   return (
     <StyledButton {...props}>
-      <ButtonText>{message || children}</ButtonText>
+      <ButtonText bold={true}>{message || children}</ButtonText>
     </StyledButton>
   );
 };
