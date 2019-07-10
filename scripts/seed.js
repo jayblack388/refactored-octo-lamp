@@ -15,7 +15,6 @@ const userSeed = [
   },
 ];
 
-db.Data.deleteMany({});
 db.User.deleteMany({})
   .then(() => {
     db.User.insertMany(userSeed)
