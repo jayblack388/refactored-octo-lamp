@@ -22,7 +22,7 @@ module.exports = {
       path: 'lists',
     };
     if (req.params.withListItems) {
-      popObj.populate = { path: 'list' };
+      popObj.populate = { path: 'data' };
     }
     db.User.findById(req.params.userId)
       .populate(popObj)

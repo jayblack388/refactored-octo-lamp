@@ -5,22 +5,27 @@ module.exports = {
     const userId = req.params.userId;
     const body = {
       userId,
-      name: req.body.name,
+      title: req.body.title,
     };
     db.List.create(body)
       .then(dbList => {
-        return db.User.findByIdAndUpdate(userId, {
-          $push: { lists: dbList._id },
-        })
-          .populate('list')
+        return db.User.findByIdAndUpdate(
+          userId,
+          {
+            $push: { lists: dbList._id },
+          },
+          { new: true }
+        )
+          .populate('lists')
           .then(dbUser => {
-            res.status(200).json({ list: dbList, user: dbUser });
+            res.status(200).json(dbUser.lists);
           });
       })
       .catch(err => res.status(422).json(err));
   },
   read: (req, res) => {
-    db.List.findById(req.body.id)
+    db.List.findById(req.params.listId)
+      .populate('data')
       .then(dbModel => res.status(200).json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -31,7 +36,13 @@ module.exports = {
   },
   delete: (req, res) => {
     db.List.findByIdAndDelete(req.params.listId)
-      .then(() => res.status(200).json({}))
+      .then(() => {
+        db.User.findById(req.params.userId)
+          .populate('lists')
+          .then(dbUser => {
+            res.status(200).json(dbUser.lists);
+          });
+      })
       .catch(err => res.status(422).json(err));
   },
 };

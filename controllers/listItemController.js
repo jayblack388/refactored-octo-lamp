@@ -5,16 +5,20 @@ module.exports = {
     const listId = req.params.listId;
     const body = {
       listId,
-      name: req.body.name,
+      title: req.body.title,
     };
     db.ListItem.create(body)
       .then(dbListItem => {
-        return db.List.findByIdAndUpdate(listId, {
-          $push: { list: dbListItem._id },
-        })
-          .populate('list')
+        return db.List.findByIdAndUpdate(
+          listId,
+          {
+            $push: { data: dbListItem._id },
+          },
+          { new: true }
+        )
+          .populate('data')
           .then(dbList => {
-            res.status(200).json({ listItem: dbListItem, list: dbList });
+            res.status(200).json(dbList);
           });
       })
       .catch(err => res.status(422).json(err));
