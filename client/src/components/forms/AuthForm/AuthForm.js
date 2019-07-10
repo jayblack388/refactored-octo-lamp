@@ -97,9 +97,10 @@ const AuthForm = props => {
             onChange={e => setCode(e.target.value)}
           />
         )}
-        {isLogin && (
+        {isLogin && !showCode && (
           <LinkButton
             blue
+            fontSize='0.75rem'
             message={
               showCode ? 'Sign up to get a code' : 'First time logging in?'
             }
@@ -110,6 +111,7 @@ const AuthForm = props => {
       <Wrapper height="20%">
         <LinkButton
           blue
+          fontSize='0.75rem'
           message={
             isLogin
               ? "Don't have an account?\nRegister here."

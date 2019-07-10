@@ -2,7 +2,7 @@ require('dotenv').config();
 const cognito = require('../../keys').cognito;
 const CognitoExpress = require('cognito-express');
 const router = require('express').Router();
-const dataRoutes = require('./data');
+const userRoutes = require('./user');
 
 const cognitoExpress = new CognitoExpress({
   region: 'us-east-1',
@@ -28,6 +28,6 @@ router.use(function(req, res, next) {
     next();
   });
 });
-router.use('/data', dataRoutes);
+router.use('/user', userRoutes);
 
 module.exports = router;

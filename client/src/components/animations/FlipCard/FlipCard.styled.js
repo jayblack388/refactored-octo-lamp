@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { animated as a } from 'react-spring';
 
+import { boxShadow } from '../../../utils/styles/helpers';
+
 const divStyle = () => `
   width: 100%;
   height: 100%;
@@ -16,7 +18,7 @@ const cardStyle = props => `
   width: ${props.width || '25rem'};;
   height: ${props.height || '30rem'};;
   will-change: transform, opacity;
-  box-shadow: 0 4px 6px ${props.theme.dark || '#000'};
+  ${boxShadow(props)};
   padding: ${props.padding || '1.5rem 2.5rem;'}
 `;
 

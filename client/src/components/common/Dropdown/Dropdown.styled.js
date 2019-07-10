@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 import { Button as DefaultButton } from '../Button';
+import { buttonBoxShadow } from '../../../utils/styles/helpers';
 
 export const DropdownContainer = styled.div`
   position: relative;
@@ -17,7 +18,7 @@ export const DropdownMenu = styled(animated.ul)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 10rem;
   height: fit-content;
   right: 0;
   top: 25px;
@@ -36,6 +37,6 @@ export const DropdownItem = styled.li`
 export const DropdownToggler = styled(DefaultButton)`
   border: 1px solid ${props => props.theme.border || '#000'};
   transition: none;
-  box-shadow: 0 2px 3px ${props => props.theme.dark || '#000'};
-  width: 100%;
+  ${props => buttonBoxShadow(props)}
+  width: 10rem;
 `;

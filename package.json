@@ -8,7 +8,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server": "node server",
+    "server": "concurrently \"mongod\" \"nodemon server\"",
     "client": "node scripts/client",
     "start": "concurrently \"mongod\" \"nodemon server\" \"yarn client\"",
     "build-client": "node scripts/build",
