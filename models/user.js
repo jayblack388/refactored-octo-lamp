@@ -6,6 +6,7 @@ const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
   },
+  lists: [{ type: Schema.Types.ObjectId, ref: 'List' }],
   email: { type: String, required: true },
   dateCreated: { type: Date, default: Date.now },
 });
