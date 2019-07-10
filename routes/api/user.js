@@ -10,7 +10,7 @@ router.route('/:email').get(userController.findByEmail);
 router.route('/:userId/list').post(listController.create);
 router.route('/:userId/lists/:withListItems?').get(userController.findLists);
 router
-  .route('/:userId/list/:listId?')
+  .route('/:userId/list/:listId')
   .get(listController.read)
   .put(listController.update)
   .delete(listController.delete);
