@@ -2,8 +2,21 @@ const db = require('../models');
 
 module.exports = {
   create: (req, res) => {
-    db.ListItem.create(req.body)
-      .then(dbModel => res.status(200).json(dbModel))
+    const listId = req.params.listId;
+    const body = {
+      listId,
+      name: req.body.name,
+    };
+    db.ListItem.create(body)
+      .then(dbListItem => {
+        return db.List.findByIdAndUpdate(listId, {
+          $push: { list: dbListItem._id },
+        })
+          .populate('list')
+          .then(dbList => {
+            res.status(200).json({ listItem: dbListItem, list: dbList });
+          });
+      })
       .catch(err => res.status(422).json(err));
   },
   read: (req, res) => {

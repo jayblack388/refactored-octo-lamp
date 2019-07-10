@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const listItemSchema = new Schema({
   name: { type: String, required: true },
-  list: { type: Schema.Types.ObjectId, ref: 'List', required: true },
+  listId: { type: Schema.Types.ObjectId, ref: 'List', required: true },
   dateCreated: { type: Date, default: Date.now },
 });
 
