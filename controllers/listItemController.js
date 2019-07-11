@@ -24,7 +24,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   read: (req, res) => {
-    db.ListItem.findById(req.body.id)
+    db.ListItem.findById(req.params.listItemId)
       .then(dbModel => res.status(200).json(dbModel))
       .catch(err => res.status(422).json(err));
   },
