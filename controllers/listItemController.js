@@ -34,8 +34,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   delete: (req, res) => {
-    db.ListItem.findByIdAndDelete(req.params.itemId)
-      .then(() => res.status(200).json({}))
+    db.ListItem.findByIdAndDelete(req.params.listItemId)
+      .then(() => {
+        db.List.findById(req.params.listId)
+          .populate('data')
+          .then(dbList => {
+            res.status(200).json(dbList);
+          });
+      })
       .catch(err => res.status(422).json(err));
   },
 };
