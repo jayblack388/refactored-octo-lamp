@@ -19,7 +19,8 @@ module.exports = {
           .populate('notes')
           .then(dbListItem => {
             res.status(200).json({ listItem: dbListItem, note: dbNote });
-          });
+          })
+          .catch(err => res.status(404).json(err));
       })
       .catch(err => res.status(422).json(err));
   },
@@ -30,17 +31,25 @@ module.exports = {
   },
   update: (req, res) => {
     db.Note.findByIdAndUpdate(req.params.noteId, req.body)
-      .then(dbNote => res.status(200).json(dbNote))
+      .then(dbNote => {
+        return db.ListItem.findById(req.params.listItemId)
+          .populate('notes')
+          .then(dbListItem => {
+            res.status(200).json({ listItem: dbListItem, note: dbNote });
+          })
+          .catch(err => res.status(404).json(err));
+      })
       .catch(err => res.status(422).json(err));
   },
   delete: (req, res) => {
     db.Note.findByIdAndDelete(req.params.noteId)
       .then(() => {
-        db.ListItem.findById(req.params.listItemId)
+        return db.ListItem.findById(req.params.listItemId)
           .populate('notes')
           .then(dbListItem => {
             res.status(200).json({ listItem: dbListItem });
-          });
+          })
+          .catch(err => res.status(404).json(err));
       })
       .catch(err => res.status(422).json(err));
   },

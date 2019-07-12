@@ -19,30 +19,32 @@ module.exports = {
           .populate('lists')
           .then(dbUser => {
             res.status(200).json(dbUser.lists);
-          });
+          })
+          .catch(err => res.status(404).json(err));
       })
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(404).json(err));
   },
   read: (req, res) => {
     db.List.findById(req.params.listId)
       .populate('data')
       .then(dbModel => res.status(200).json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(404).json(err));
   },
   update: (req, res) => {
     db.List.findByIdAndUpdate(req.params.listId, req.body)
       .then(dbModel => res.status(200).json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(404).json(err));
   },
   delete: (req, res) => {
     db.List.findByIdAndDelete(req.params.listId)
       .then(() => {
-        db.User.findById(req.params.userId)
+        return db.User.findById(req.params.userId)
           .populate('lists')
           .then(dbUser => {
             res.status(200).json(dbUser.lists);
-          });
+          })
+          .catch(err => res.status(404).json(err));
       })
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(404).json(err));
   },
 };
