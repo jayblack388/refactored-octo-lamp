@@ -18,14 +18,14 @@ router
   .delete(listController.delete);
 
 router
-  .route('/:userId/list/:listId/:listItemId?')
+  .route('/:userId/list/:listId/listItem/:listItemId?')
   .post(listItemController.create)
   .get(listItemController.read)
   .put(listItemController.update)
   .delete(listItemController.delete);
 
 router
-  .route('/:userId/list/:listId/:listItemId/note/:noteId?')
+  .route('/:userId/list/:listId/listItem/:listItemId/note/:noteId?')
   .post(noteController.create)
   .get(noteController.read)
   .put(noteController.update)
