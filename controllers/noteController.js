@@ -12,13 +12,13 @@ module.exports = {
         return db.ListItem.findByIdAndUpdate(
           listItemId,
           {
-            $push: { data: dbNote._id },
+            $push: { notes: dbNote._id },
           },
           { new: true }
         )
           .populate('notes')
           .then(dbListItem => {
-            res.status(200).json(dbListItem);
+            res.status(200).json({ listItem: dbListItem, note: dbNote });
           });
       })
       .catch(err => res.status(422).json(err));
@@ -39,7 +39,7 @@ module.exports = {
         db.ListItem.findById(req.params.listItemId)
           .populate('notes')
           .then(dbListItem => {
-            res.status(200).json(dbListItem);
+            res.status(200).json({ listItem: dbListItem });
           });
       })
       .catch(err => res.status(422).json(err));

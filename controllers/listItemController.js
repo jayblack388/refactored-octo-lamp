@@ -25,6 +25,7 @@ module.exports = {
   },
   read: (req, res) => {
     db.ListItem.findById(req.params.listItemId)
+      .populate('notes')
       .then(dbModel => res.status(200).json(dbModel))
       .catch(err => res.status(422).json(err));
   },
