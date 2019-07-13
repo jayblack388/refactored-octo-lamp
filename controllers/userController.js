@@ -1,35 +1,44 @@
 const db = require('../models');
 
 module.exports = {
-  findAll: (req, res) => {
-    db.User.find(req.query)
-      .sort({ date: -1 })
-      .then(dbModel => res.status(200).json(dbModel))
-      .catch(err => res.status(422).json(err));
+  // findAll: async (req, res) => {
+  //   try {
+  //     const dbModel = await db.User.find(req.query).sort({ date: -1 });
+  //     return res.status(200).json(dbModel);
+  //   } catch (err) {
+  //     return res.status(422).json(err);
+  //   }
+  // },
+  findByEmail: async (req, res) => {
+    try {
+      const dbModel = await db.User.findOne({ email: req.params.email });
+      return res.status(200).json(dbModel);
+    } catch (err) {
+      return res.status(422).json(err);
+    }
   },
-  findByEmail: (req, res) => {
-    db.User.findOne({ email: req.params.email })
-      .then(dbModel => res.status(200).json(dbModel))
-      .catch(err => res.status(422).json(err));
+  findById: async (req, res) => {
+    try {
+      const dbModel = await db.User.findById(req.params.id);
+      return res.status(200).json(dbModel);
+    } catch (err) {
+      return res.status(422).json(err);
+    }
   },
-  findById: (req, res) => {
-    db.User.findById(req.params.id)
-      .then(dbModel => res.status(200).json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  findLists: (req, res) => {
+  findLists: async (req, res) => {
     const popObj = {
       path: 'lists',
     };
     if (req.params.withListItems) {
       popObj.populate = { path: 'data' };
     }
-    db.User.findById(req.params.userId)
-      .populate(popObj)
-      .select('lists -_id')
-      .then(dbLists => {
-        res.status(200).json(dbLists);
-      })
-      .catch(err => res.status(422).json(err));
+    try {
+      const dbLists = await db.User.findById(req.params.userId)
+        .populate(popObj)
+        .select('lists');
+      res.status(200).json(dbLists);
+    } catch (err) {
+      return res.status(422).json(err);
+    }
   },
 };
