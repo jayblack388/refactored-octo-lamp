@@ -35,7 +35,8 @@ module.exports = {
     try {
       const dbLists = await db.User.findById(req.params.userId)
         .populate(popObj)
-        .select('lists');
+        .select('lists')
+        .sort({ dateCreated: -1 });
       res.status(200).json(dbLists);
     } catch (err) {
       return res.status(422).json(err);

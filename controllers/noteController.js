@@ -10,17 +10,18 @@ module.exports = {
     try {
       const dbNote = await db.Note.create(body);
       try {
-        const dbListItem = await db.ListItem.findByIdAndUpdate(listItemId, {
-          $push: { notes: dbNote._id },
-        }, { new: true })
-          .populate('notes');
+        const dbListItem = await db.ListItem.findByIdAndUpdate(
+          listItemId,
+          {
+            $push: { notes: { $each: [dbNote._id], $position: 0 } },
+          },
+          { new: true }
+        ).populate('notes');
         res.status(200).json({ listItem: dbListItem, note: dbNote });
-      }
-      catch (err) {
+      } catch (err) {
         return res.status(404).json(err);
       }
-    }
-    catch (err_1) {
+    } catch (err_1) {
       return res.status(404).json(err_1);
     }
   },
@@ -28,24 +29,25 @@ module.exports = {
     try {
       const dbNote = await db.Note.findById(req.params.noteId);
       return res.status(200).json(dbNote);
-    }
-    catch (err) {
+    } catch (err) {
       return res.status(404).json(err);
     }
   },
   update: async (req, res) => {
     try {
-      const dbNote = await db.Note.findByIdAndUpdate(req.params.noteId, req.body);
+      const dbNote = await db.Note.findByIdAndUpdate(
+        req.params.noteId,
+        req.body
+      );
       try {
-        const dbListItem = await db.ListItem.findById(req.params.listItemId)
-          .populate('notes');
+        const dbListItem = await db.ListItem.findById(
+          req.params.listItemId
+        ).populate('notes');
         res.status(200).json({ listItem: dbListItem, note: dbNote });
-      }
-      catch (err) {
+      } catch (err) {
         return res.status(404).json(err);
       }
-    }
-    catch (err_1) {
+    } catch (err_1) {
       return res.status(404).json(err_1);
     }
   },
@@ -53,15 +55,14 @@ module.exports = {
     try {
       await db.Note.findByIdAndDelete(req.params.noteId);
       try {
-        const dbListItem = await db.ListItem.findById(req.params.listItemId)
-          .populate('notes');
+        const dbListItem = await db.ListItem.findById(
+          req.params.listItemId
+        ).populate('notes');
         res.status(200).json({ listItem: dbListItem });
-      }
-      catch (err) {
+      } catch (err) {
         return res.status(404).json(err);
       }
-    }
-    catch (err_1) {
+    } catch (err_1) {
       return res.status(404).json(err_1);
     }
   },

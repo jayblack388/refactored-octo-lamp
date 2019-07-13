@@ -12,7 +12,7 @@ module.exports = {
       const dbList = await db.List.findByIdAndUpdate(
         listId,
         {
-          $push: { data: dbListItem._id },
+          $push: { data: { $each: [dbListItem._id], $position: 0 } },
         },
         { new: true }
       ).populate('data');
