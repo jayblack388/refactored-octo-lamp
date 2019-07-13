@@ -8,11 +8,11 @@ const userController = require('../../controllers/userController');
 router.route('/:id').get(userController.findById);
 router.route('/:email').get(userController.findByEmail);
 
-router.route('/:userId/list').post(listController.create);
 router.route('/:userId/lists/:withListItems?').get(userController.findLists);
 
 router
-  .route('/:userId/list/:listId')
+  .route('/:userId/list/:listId?')
+  .post(listController.create)
   .get(listController.read)
   .put(listController.update)
   .delete(listController.delete);
