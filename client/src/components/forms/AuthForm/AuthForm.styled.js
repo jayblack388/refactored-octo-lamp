@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { flex } from '../../../utils/styles/helpers';
+import { styles } from 'jdb-components';
+const {
+  helpers: { flex },
+} = styles;
 
 export const Heading = styled.h3`
   font-size: 1.6rem;

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { ToastContainer } from 'jdb-components';
 import { INITIALIZE } from './auth';
-import { ToastContainer } from '../../components/common';
 export const INITIALIZE_USER = 'INITIALIZE_USER';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

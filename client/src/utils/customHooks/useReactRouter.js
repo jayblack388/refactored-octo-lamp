@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { __RouterContext } from 'react-router-dom';
-import { useForceUpdate } from './';
+import { hooks } from 'jdb-components';
+const { useForceUpdate } = hooks;
 
 const useRouter = () => {
   const forceUpdate = useForceUpdate();

@@ -1,16 +1,19 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Header, Loader } from './components/common';
+import { Loader } from 'jdb-components';
+import { Header } from './components/common';
 import { HomePage, Auth } from './components/pages';
-import { useGlobalState } from './store/GlobalState';
+import { useGlobalState, useTheme } from './store/GlobalState';
 
 const Routes = props => {
   const { onLogout } = props;
   const [{ auth, user }] = useGlobalState();
+  const theme = useTheme();
   const { isAuthenticated, authState } = auth;
   return (
     <div id="App">
       <Loader
+        theme={theme}
         isLoading={authState === 'loading' || (user && user.isLoading)}
         message="Loading authentication..."
       >
