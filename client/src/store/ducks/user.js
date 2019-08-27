@@ -175,7 +175,7 @@ export const refreshLogin = (dispatch, data) => {
       const { data } = resp;
       dispatch(loginSuccess(data));
     })
-    .catch(e => {
+    .catch(({ response: { data: e } }) => {
       dispatch(loginFailure(e));
     });
 };
