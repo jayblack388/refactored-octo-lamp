@@ -4856,10 +4856,10 @@ iterall@1.1.x:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
 
-jdb-components@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/jdb-components/-/jdb-components-0.0.5.tgz#2c952ff987cc9768b32e2e17de073ed700e0a11b"
-  integrity sha512-AjeVM86ZJmyZndiErgQbHUJXvDW8pge/4g9ywzIicGm27t6+fS0hprywQJ6kC9ALR986qZ71H5WtalvR/xqZ/g==
+jdb-components@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/jdb-components/-/jdb-components-0.0.9.tgz#42bec180a68201d119adae68437594862ded1af7"
+  integrity sha512-bj+QYe9qe+sH2ysMKYRuTWbEEshAkx3E4qSuUXj7DqmHQI1FtSse91NQ4HBdPz+OCuDRZ7zskYaC3WV5sQxRHg==
   dependencies:
     color "^3.1.2"
     react-router-dom "^5.0.1"
