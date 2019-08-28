@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import Amplify from 'aws-amplify';
 import { Authenticator } from 'aws-amplify-react';
+import { hooks, Loader } from 'jdb-components';
 
-import { useGlobalState } from '../../store/GlobalState';
-import { useLocalStorage } from '../../utils/customHooks';
+import { useGlobalState, useTheme } from '../../store/GlobalState';
 import { configureAuth } from '../../store/ducks/config';
 import { authSuccess } from '../../store/ducks/auth';
 import { login, logout, refreshLogin, signUp } from '../../store/ducks/user';
-import { Loader } from '../common';
+
+const { useLocalStorage } = hooks;
 
 const CustomAuthenticator = props => {
   const { children } = props;
-
+  const theme = useTheme();
   const [store, dispatch] = useGlobalState();
   const {
     config,
@@ -66,8 +67,9 @@ const CustomAuthenticator = props => {
         authenticationFlowType: 'USER_SRP_AUTH',
       },
     });
+  console.log(theme);
   return (
-    <Loader isLoading={configIsLoading}>
+    <Loader theme={theme} isLoading={configIsLoading}>
       <Authenticator
         onStateChange={state => {
           console.log('authState change ::: ', state);

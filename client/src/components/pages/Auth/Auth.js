@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Page, Wrapper } from '../../containers';
+import { FlipCard, Page, Wrapper } from 'jdb-components';
 import AuthForm from '../../forms/AuthForm/AuthForm';
-import { FlipCard } from '../../animations';
 
 const AuthPage = props => {
   const [flipped, setFlipped] = useState(false);

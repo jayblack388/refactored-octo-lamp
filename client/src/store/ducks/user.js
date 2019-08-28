@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { ToastContainer } from 'jdb-components';
 import { INITIALIZE } from './auth';
-import { ToastContainer } from '../../components/common';
 export const INITIALIZE_USER = 'INITIALIZE_USER';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -126,9 +126,9 @@ export const signUp = (dispatch, data) => {
       const { data } = resp;
       dispatch(signUpSuccess(data));
     })
-    .catch(err => {
-      dispatch(signUpFailure(err));
-      toast(<ToastContainer error message={err.response.data.message} />);
+    .catch(({ response: { data: e } }) => {
+      dispatch(signUpFailure(e));
+      toast(<ToastContainer error message={e.message} />);
     });
 };
 
@@ -154,9 +154,9 @@ export const login = (dispatch, data) => {
       localStorage.setItem('idToken', idToken);
       dispatch(loginSuccess(data));
     })
-    .catch(err => {
-      dispatch(loginFailure(err.response.data.message));
-      toast(<ToastContainer error message={err.response.data.message} />);
+    .catch(({ response: { data: e } }) => {
+      dispatch(loginFailure(e));
+      toast(<ToastContainer error message={e.message} />);
     });
 };
 
@@ -175,7 +175,7 @@ export const refreshLogin = (dispatch, data) => {
       const { data } = resp;
       dispatch(loginSuccess(data));
     })
-    .catch(e => {
+    .catch(({ response: { data: e } }) => {
       dispatch(loginFailure(e));
     });
 };
