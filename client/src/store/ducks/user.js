@@ -126,9 +126,9 @@ export const signUp = (dispatch, data) => {
       const { data } = resp;
       dispatch(signUpSuccess(data));
     })
-    .catch(err => {
-      dispatch(signUpFailure(err));
-      toast(<ToastContainer error message={err.response.data.message} />);
+    .catch(({ response: { data: e } }) => {
+      dispatch(signUpFailure(e));
+      toast(<ToastContainer error message={e.message} />);
     });
 };
 
@@ -154,9 +154,9 @@ export const login = (dispatch, data) => {
       localStorage.setItem('idToken', idToken);
       dispatch(loginSuccess(data));
     })
-    .catch(err => {
-      dispatch(loginFailure(err.response.data.message));
-      toast(<ToastContainer error message={err.response.data.message} />);
+    .catch(({ response: { data: e } }) => {
+      dispatch(loginFailure(e));
+      toast(<ToastContainer error message={e.message} />);
     });
 };
 
