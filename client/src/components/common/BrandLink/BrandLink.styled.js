@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { styles } from 'jdb-components';
 import { Link } from 'react-router-dom';
-import { buttonBoxShadow } from '../../../utils/styles/helpers';
+const {
+  helpers: { buttonBoxShadow },
+} = styles;
 
 export const Logo = styled.img`
   height: 40px;

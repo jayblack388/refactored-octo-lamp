@@ -148,7 +148,7 @@ function Renew(req, res) {
 
   cognitoUser.refreshSession(RefreshToken, (err, session) => {
     if (err) {
-      console.log(err);
+      res.status(403).json(err);
     } else {
       const tokens = {
         accessToken: session.accessToken.jwtToken,

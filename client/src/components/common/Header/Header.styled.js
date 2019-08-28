@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button as DefaultButton } from '../Button';
+import { Button as DefaultButton } from 'jdb-components';
 
 export const Container = styled.nav`
   background-color: ${props => props.theme.darkens.border || '#cecece'};

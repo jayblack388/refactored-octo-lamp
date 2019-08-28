@@ -10,8 +10,14 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 1000000,
+  })
+);
+app.use(bodyParser.json({ extended: true }));
 app.use(logger('dev'));
 
 app.use(express.static('client/build'));
@@ -23,7 +29,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/refactored-octo-lamp',
   {
-    useNewUrlParser: true
+    useNewUrlParser: true,
   }
 );
 
